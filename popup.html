@@ -1,5 +1,3 @@
-<!-- Extension initialized with https://github.com/virejdasani/Chrome-Extension-Boilerplate -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,21 +9,47 @@
   <link rel="icon" href="assets/icon.png" />
   <link rel="stylesheet" href="style.css">
 
-  <title>Your extension name</title>
+  <title>📇 🚗 TyperRacer Bot📇 🚗</title>
+
 </head>
 
 <body>
 
-  <h1>Your Extension</h1>
+  <h1>📇 🚗 Welcome to TypeRacerBot📇 🚗 </h1>
+  1) At game start, the text will be black indicating they are not yet selectable 
+  <img src="assets/typeracerinfo1.png"><br>
+  2) Wait until the text turns red, which indicates they are now selectable.
+  <img src="assets/typeracerinfo2.png">
+  3) Initialize the script by pressing the "/" key once, the text will turn yellow
+  <img src="assets/typeracerinfo3.png">
+  4)Right click the text, navigate to the 'Send: "your text"' option and left click'
+  <img src="assets/typeracerinfo4.png">
+  5) Left click the main body, off the text, to redisplay the yellow color. Press the "/" once again. The text will turn green indicating you are ready to race.
+  <img src="assets/typeracerinfo6.png">
+  6) when the countdown reaches zero, the input will automatically be focused. Pressing or holding "/" will enter the letters into the input field.
+  <p style="color: red">NOTE: It's suggested to make a few test key presses to ensure the script is operating correctly</p>
+  <img src="assets/typeracerinfo7.png">
+  <img src="assets/typeracerinfo8.png">
+  7) Once you have completed the race, a bot detection warning will appear. This is the extent of the script. Tell your friends the "race again" option isn't working, then close and reload the page to race again.
+  <img src="assets/typeracerinfo9.png">
 
-  <p>
-    <a class="indicator" href="https://www.youtube.com/channel/UCRzS48bskynAxoI38BFypfQ?sub_confirmation=1"
-      target="_blank">Subscribe to Virej</a> • <a class="indicator"
-      href="https://github.com/virejdasani/Chrome-Extension-Boilerplate" target="_blank">Give the repo
-      a ⭐️</a>
-  </p>
+  Congrats, you are now a TypeRacer God!
 
-  <script src=" popup.js"></script>
+
+<!-- <button id="myButton" style="Display: none">Insert words</button>
+<button id="myAlert" style="Display: none">Alert words</button>
+<input id="input" placeholder="Enter words here" style="Display: none"></input>
+<input id="input2" Placeholder="text go here" style="Display: none"></input>
+ 
+  <input placeholder="Enter target WPM" style="Display: none"></input> -->
+  <button style="Display: none">Submit WPM</button>
+  <div>
+
+  </div>
 </body>
 
+ <script src="popup.js">
+
+
+ </script>
 </html>
