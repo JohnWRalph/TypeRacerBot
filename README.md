@@ -2,7 +2,7 @@
 
 Typeracer is an online Words Per Minute typing game, this extension enables the user to rapidly insert the necessary characters to achieve ridiculously high Words Per Minute.
 
-<img src="typeracer.gif" alt="">
+Gif Preview: https://imgur.com/bk1esPm
 
 How to use:
 1. Clone this repository.
