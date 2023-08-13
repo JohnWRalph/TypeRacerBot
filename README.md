@@ -1,6 +1,6 @@
 <h1 style="font-size: 1.25rem;">📇 🚗 Welcome to TypeRacerBot📇 🚗 </h1>
 
-Typeracer is an online Words Per Minute typing game, this extension enables the user to rapidly insert the necessary characters to achieve ridiculously high Words Per Minute.
+Typeracer is an online Words Per Minute typing game, this extension automatically retrieves the text and types it for the user in order to achieve ridiculously high Words Per Minute. I made this simply for the fun of pranking my friends as well as learning about chrome extensions.
 
 Gif Preview: https://imgur.com/bk1esPm
 
