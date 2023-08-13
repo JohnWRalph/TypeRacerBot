@@ -1,48 +1,72 @@
-let changed;
-var i = -3;
-let value = "";
+let index = 0;
+let textTocopy = "";
+let targetWPM;
+let charsPersecond;
+let millisecondsPerChar;
 
-// Text that needs to be copied has a unselectable property.
+// Text that needs to be copied is under class inputPanel.
 // they do no appear on page load. The modifier is set to run on an interval until it does appear and is changed. 
-setInterval(() => {
-    if (document.querySelector('.unselectable') && changed !== 10) {
-        document.querySelector('.unselectable').style.userSelect = 'all';
-        document.querySelector('.unselectable').style.color = 'red'
-        changed = 10;
-    }
-}, 1000);
-
-// Listens to a key pres, if it is a "/", perform the script. the first 3 if statements are providing a
-// visual Queue for the user. The background script determines which number should be displayed next and returns and appends
-//the inout field instead of the "/" key
-document.onkeydown = (function (event) {
-
-    if (event.key === "/") {
-
-        i = i + 1;
-
-        if (i == -2) {
-            document.querySelector('.unselectable').style.color = 'yellow';
-        } else if (i === -1) {
-            document.querySelector('.unselectable').style.color = 'green';
-        } else if (i >= 0) {
-            document.querySelector('.unselectable').style.color = 'black';
-        }
-        chrome.runtime.sendMessage({ text: "hello" }, function (response) {
-            console.log(response)
-            value = response;
-
-
+//get wpm value from storage
+chrome.storage.sync.get(['wpm'], function (result) {
+    targetWPM = result.wpm;
+    //if wpm is not set, set it to 100
+    if (targetWPM === undefined) {
+        chrome.storage.sync.set({ wpm: 100 }, function () {
+            console.log("WPM is set to " + 100);
         })
-
-        // prevent the "/" key from being typed in the input field
-        event.preventDefault();
-        //apend the input field
-        document.activeElement.value = document.activeElement.value + value;
-
     }
+    //calculate the number of characters per second
+    charsPerSecond = (targetWPM * 5) / 60;
+    inverseCharsPerSecond = 1 / charsPerSecond;
+    millisecondsPerChar = inverseCharsPerSecond * 1000;
 
+    setInterval(() => {
+        if (document.querySelector('.inputPanel') && !textTocopy) {
+            //get the text to be copied
+            textToCopy = document.querySelector('.inputPanel').innerText;
+
+            //get child nodes of the input field
+            let textToInput = document.querySelector('.inputPanel').childNodes[0].childNodes[1].childNodes[0].childNodes[0];
+
+            //if textToInput has disabled attribute it is not ready to be typed in.
+            if (textToInput.hasAttribute('disabled') && textToCopy) {
+                //mark the text to be copied as yellow to notify user successful copy but not ready to be written       
+                document.querySelector('.inputPanel').style.color = 'yellow';
+            } else if (!textToInput.hasAttribute('disabled') && textToCopy) {
+                if (document.querySelector('.inputPanel').style.color !== 'green') {
+                    //mark green to notify user ready to be written
+                    document.querySelector('.inputPanel').style.color = 'green';
+                }
+                //keep the input field in focus
+                document.querySelector('.inputPanel').childNodes[0].childNodes[1].childNodes[0].childNodes[0].focus()
+                //set the value of the input field to the text to be copied
+                document.querySelector('.inputPanel').childNodes[0].childNodes[1].childNodes[0].childNodes[0].value = textToInput.value.concat(textToCopy[index]);
+                index = index + 1;
+                //typeracer listens for a keydown event to enter the current word. This event is simulated here.
+                var event = new KeyboardEvent('keydown', {
+                    key: ' ',
+                    keyCode: 32,
+                    which: 32,
+                    code: 'Space'
+                });
+                document.querySelector('.inputPanel').childNodes[0].childNodes[1].childNodes[0].childNodes[0].dispatchEvent(event);
+            }
+
+        }
+
+        try {
+            //if the text to be copied is finished, the game is over. Reset the variables.
+            //the actual text to that needs to be entered is 21 characters from the end of the string that is copied
+            if (index === textToCopy.length - 21) {
+                console.log("reset")
+                textToCopy = "";
+                index = 0;
+                textToInput.value = "";
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }, millisecondsPerChar);
 });
-
 
 

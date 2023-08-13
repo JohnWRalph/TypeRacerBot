@@ -11,6 +11,8 @@ let inputText;
 
 
     chrome.runtime.onMessage.addListener(
+     
+
         function (request, sender, sendResponse) {
 
             chrome.contextMenus.onClicked.addListener(function (info) {
@@ -25,23 +27,30 @@ let inputText;
 
             i = i + 1;
             sendResponse(inputText[i] );
-
+            setInterval(() => {
+                console.log("hi")
+            }, 1000);
 
 
         }
     )
-    chrome.contextMenus.create({
-        id: "wikipedia",
-        title: "Send: \"%s\"",
-        contexts: ["selection"]
-    })
+    // chrome.contextMenus.create({
+    //     id: "wikipedia",
+    //     title: "Send: \"%s\"",
+    //     contexts: ["selection"]
+    // })
 
 
 // });
 
 chrome.contextMenus.onClicked.addListener(function (info) {
 
-    console.log("info", info)
+    console.log("info", info.selectionText)
+    chrome.runtime.sendMessage({ text: info.selectionText }, function (response) {
+        sendResponse("response")
+    })
+      
+
 })
 
 

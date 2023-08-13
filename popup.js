@@ -1,36 +1,35 @@
-let pageInput = "";
+// Retrieve the stored value from Chrome storage
+chrome.storage.sync.get(['wpm'], function (result) {
+    var retrievedWPM = result.wpm;
 
-//To-Do rename and remove unused buttons and functions
-document.getElementById("myAlert").addEventListener("click", alertFunction);
-document.getElementById("myButton").addEventListener("click", myFunction);
-document.addEventListener("onKeyPress", myFunction)
+    // Do something with the retrieved value, like displaying it in the popup HTML
+    var valueElement = document.getElementById('storedWPMElement');
+    if (retrievedWPM !== undefined) {
+        valueElement.textContent = 'Target WPM: ' + retrievedWPM;
+    } else {
+        valueElement.textContent = 'WPM value not found.';
+    }
+});
 
+function setWPM() {
+    //get the value from the input field
+    let wpm = document.getElementById("wpmInput").value;
+    //store the value in chrome storage
+    chrome.storage.sync.set({ wpm: wpm }, function () {
+        console.log("WPM is set to " + wpm);
+    })
+    //update the popup html
+    var valueElement = document.getElementById('storedWPMElement');
+    valueElement.textContent = 'Target WPM: ' + wpm;
 
-// function myFunction() {
-//   chrome.runtime.sendMessage({ text: "hello" }, function (response) {
-//   })
+    //reload the page
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.reload(tabs[0].id);
+    }
+    );
 
-// }
+}
 
-
-// function alertFunction() {
-//   const pageInput = document.getElementById("input").value
-//   console.log(pageInput[1])
-//   let i = 0;
-//   setInterval(function () {
-//     console.log(pageInput[i])
-//     document.getElementById("input2").value = document.getElementById("input2").value + (pageInput[i])
-//     i = i + 1;
-//   }, 500)
-
-
-
-
-
-// }
-
-
-
-
-
-// nonHideableWords unseleble
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("setWPMButton").addEventListener("click", setWPM);
+})

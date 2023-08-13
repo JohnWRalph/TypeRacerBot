@@ -10,46 +10,54 @@
   <link rel="stylesheet" href="style.css">
 
   <title>📇 🚗 TyperRacer Bot📇 🚗</title>
-
+  <script src="popup.js"></script>
 </head>
 
 <body>
 
-  <h1>📇 🚗 Welcome to TypeRacerBot📇 🚗 </h1>
-  1) At game start, the text will be black indicating they are not yet selectable 
-  <img src="assets/typeracerinfo1.png"><br>
-  2) Wait until the text turns red, which indicates they are now selectable.
-  <img src="assets/typeracerinfo2.png">
-  3) Initialize the script by pressing the "/" key once, the text will turn yellow
-  <img src="assets/typeracerinfo3.png">
-  4)Right click the text, navigate to the 'Send: "your text"' option and left click'
-  <img src="assets/typeracerinfo4.png">
-  5) Left click the main body, off the text, to redisplay the yellow color. Press the "/" once again. The text will turn green indicating you are ready to race.
-  <img src="assets/typeracerinfo6.png">
-  6) when the countdown reaches zero, the input will automatically be focused. Pressing or holding "/" will enter the letters into the input field.
-  <p style="color: red">NOTE: It's suggested to make a few test key presses to ensure the script is operating correctly</p>
-  <img src="assets/typeracerinfo7.png">
-  <img src="assets/typeracerinfo8.png">
-  7) Once you have completed the race, a bot detection warning will appear. This is the extent of the script. Tell your friends the "race again" option isn't working, then close and reload the page to race again.
-  <img src="assets/typeracerinfo9.png">
+  <h1 style="font-size: 1.25rem;">📇 🚗 Welcome to TypeRacerBot📇 🚗 </h1>
+  <input type="number" id="wpmInput" placeholder="Enter target WPM">
+  <br>
+  <button id="setWPMButton">Set WPM</button>
+  <br>
 
-  Congrats, you are now a TypeRacer God!
+  <h1 id="storedWPMElement">Value from Storage: Loading...</h1>
+  <p class="info">1) Enter WPM target in the input field below and press the "Set WPM" button.
+    This value will be an approximate value, as the script will attempt to match the target WPM, but will not be exact.
+  </p>
+
+  <img src="assets/wpmInput.png">
+  <p class="info">2) At game start, the text will turn yellow, indicating the text has been copied but not yet able to
+    be written.</p>
+  <img src="assets/TypeRacerYellow.png"><br>
+  <p class="info">3)Once the the timer reaches 0, the text will turn green indicating the race has started.
+    The input field will automatically be focused, and the text will begin to be typed. No input is required from the
+    user.</p>
+
+  <img src="assets/TypeRacerGreen.png"><br>
+
+  <p class="info">4) Once you have completed the race, a warning will appear if you completed over 100wpm asking to
+    retest. This is the
+    extent of the script as it's purpose is to prank friends and not to actually cheat in official races. Tell your
+    friends the "race again" option isn't working, then reload the page to race again.</p>
+  <img src="assets/TypeRacerChallenge.png">
+  <p class="info">
+    Congrats, you are now a TypeRacer Master!
+  </p>
 
 
-<!-- <button id="myButton" style="Display: none">Insert words</button>
-<button id="myAlert" style="Display: none">Alert words</button>
-<input id="input" placeholder="Enter words here" style="Display: none"></input>
-<input id="input2" Placeholder="text go here" style="Display: none"></input>
- 
-  <input placeholder="Enter target WPM" style="Display: none"></input> -->
-  <button style="Display: none">Submit WPM</button>
-  <div>
 
-  </div>
 </body>
 
- <script src="popup.js">
+<script src="popup.js">
 
 
- </script>
+</script>
+
 </html>
+<style>
+  .info {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+</style>
